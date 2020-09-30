@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -45,13 +47,34 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text("Ortalama Hesapla"),
         elevation: 0,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          if (formKey.currentState.validate()) {
-            formKey.currentState.save();
-          }
-        },
-        child: Icon(Icons.add),
+      floatingActionButton: SpeedDial(
+        overlayOpacity: 0,
+        animatedIcon: AnimatedIcons.menu_close,
+        children: [
+          SpeedDialChild(
+            label: "Ders Ekle",
+            child: FloatingActionButton(
+
+              onPressed: () {
+                if (formKey.currentState.validate()) {
+                  formKey.currentState.save();
+                }
+              },
+              child: Icon(Icons.add),
+            ),
+          ),
+          SpeedDialChild(
+            label: "Tümünü Temizle",
+            child: FloatingActionButton(
+              onPressed: () {
+                setState(() {
+                  tumDersler.clear();
+                });
+              },
+              child: Icon(Icons.delete_forever),
+            ),
+          ),
+        ],
       ),
       body: OrientationBuilder(builder: (context, orientation) {
         if (orientation == Orientation.portrait) {
@@ -425,6 +448,13 @@ class _MyHomePageState extends State<MyHomePage> {
         style: TextStyle(fontSize: 20),
       ),
       value: 1,
+    ));
+    harfler.add(DropdownMenuItem(
+      child: Text(
+        " FD ",
+        style: TextStyle(fontSize: 20),
+      ),
+      value: 0.5,
     ));
     harfler.add(DropdownMenuItem(
       child: Text(
