@@ -47,31 +47,32 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text("Ortalama Hesapla"),
         elevation: 0,
       ),
-      floatingActionButton: SpeedDial(
-        overlayOpacity: 0,
-        animatedIcon: AnimatedIcons.menu_close,
-        children: [
-          SpeedDialChild(
-            label: "Ders Ekle",
-            child: FloatingActionButton(
-
-              onPressed: () {
-                if (formKey.currentState.validate()) {
-                  formKey.currentState.save();
-                }
-              },
-              child: Icon(Icons.add),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          FloatingActionButton(
+            onPressed: () {
+              setState(() {
+                tumDersler.clear();
+              });
+            },
+            tooltip: "Tümünü Sil",
+            child: Icon(
+              Icons.delete_forever,
+              color: Colors.white,
             ),
+            mini: true,
           ),
-          SpeedDialChild(
-            label: "Tümünü Temizle",
-            child: FloatingActionButton(
-              onPressed: () {
-                setState(() {
-                  tumDersler.clear();
-                });
-              },
-              child: Icon(Icons.delete_forever),
+          FloatingActionButton(
+            tooltip: "Ders Ekle",
+            onPressed: () {
+              if (formKey.currentState.validate()) {
+                formKey.currentState.save();
+              }
+            },
+            child: Icon(
+              Icons.add,
+              color: Colors.white,
             ),
           ),
         ],
